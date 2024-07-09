@@ -13,9 +13,33 @@ import joblib
 st.title("Lead Scoring Prediction App")
 
 # Sidebar for navigation
-page = st.sidebar.selectbox("Choose a page", ["Data Processing", "Model Prediction"])
+page = st.sidebar.selectbox("Choose a page", ["Introduction", "Data Processing", "Model Prediction"])
 
-if page == "Data Processing":
+if page == "Introduction":
+    st.header("Introduction")
+    st.markdown("""
+    Welcome to the Lead Scoring Prediction App. This application is designed to help predict the likelihood of a customer making a purchase based on their browsing behavior. The project involves data processing, model training, and making predictions using the trained model.
+
+    ### Data Dictionary
+    The dataset used in this project includes the following columns:
+
+    - **SESSION_ID**: Unique identifier for each session.
+    - **IMAGES**: Whether the user viewed images (1 for yes, 0 for no).
+    - **REVIEWS**: Whether the user looked at reviews (1 for yes, 0 for no).
+    - **FAQ**: Whether the user viewed the FAQ section (1 for yes, 0 for no).
+    - **SPECS**: Whether the user viewed the product specifications (1 for yes, 0 for no).
+    - **SHIPPING**: Whether the user viewed shipping information (1 for yes, 0 for no).
+    - **BRO_TOGETHER**: Whether the user browsed similar items together (1 for yes, 0 for no).
+    - **COMPARE_SIMILAR**: Whether the user compared similar items (1 for yes, 0 for no).
+    - **VIEW_SIMILAR**: Whether the user viewed similar items (1 for yes, 0 for no).
+    - **WARRANTY**: Whether the user checked the warranty (1 for yes, 0 for no).
+    - **SPONSORED_LINKS**: Whether the user clicked on sponsored links (1 for yes, 0 for no).
+    - **BUY**: Whether the user made a purchase (1 for yes, 0 for no).
+
+    The goal is to use these features to predict the `BUY` column, indicating whether a user will make a purchase or not.
+    """)
+
+elif page == "Data Processing":
     # Section: Data Processing
     st.header("Data Processing")
     st.markdown("""
@@ -159,77 +183,47 @@ if page == "Data Processing":
     st.text(classification_report(y_test, y_pred_dt))
     st.write("ROC AUC Score:", roc_auc_score(y_test, y_prob_dt))
 
-    # Model Comparison
-    st.subheader("Step 10: Model Comparison")
+    # Step 10: Model Saving
+    st.subheader("Step 10: Model Saving")
     st.markdown("""
-    We compare the models using ROC AUC scores and select the best performing model.
+    The best-performing model is saved for future use. This enables deploying the model to make predictions on new data.
     """)
-    models = ['Gaussian Naive Bayes', 'Logistic Regression', 'Decision Tree']
-    roc_auc_scores = [roc_auc_score(y_test, y_prob_gnb), roc_auc_score(y_test, y_prob_lr), roc_auc_score(y_test, y_prob_dt)]
-    comparison_df = pd.DataFrame({'Model': models, 'ROC AUC Score': roc_auc_scores})
-    st.write(comparison_df)
-
-    best_model_index = comparison_df['ROC AUC Score'].idxmax()
-    best_model = comparison_df.loc[best_model_index]
-    st.write(f"The best performing model is: {best_model['Model']} with a ROC AUC Score of: {best_model['ROC AUC Score']:.2f}")
-
-    # Save the best model
-    joblib_file = "best_model.pkl"
-    if best_model['Model'] == 'Gaussian Naive Bayes':
-        joblib.dump(gnb, joblib_file)
-    elif best_model['Model'] == 'Logistic Regression':
-        joblib.dump(lr, joblib_file)
-    else:
-        joblib.dump(dt, joblib_file)
-    st.write(f"Best model saved as: {joblib_file}")
+    best_model = lr
+    joblib.dump(best_model, 'best_model.pkl')
+    joblib.dump(scaler, 'scaler.pkl')
+    st.write("Best model and scaler saved as best_model.pkl and scaler.pkl")
 
 elif page == "Model Prediction":
     # Section: Model Prediction
     st.header("Model Prediction")
-    
-    st.write("""
-   This section uses the trained model to make predictions on new data.
-## Instructions
-1. Please upload a CSV file with the following columns: `REVIEWS`, `BRO_TOGETHER`, `COMPARE_SIMILAR`, `WARRANTY`, `SPONSORED_LINKS`.
-2. Ensure the column names are exactly as listed above (case sensitive).
-3. The values in the columns should be `0` or `1`, where `0` indicates an action was not taken and `1` indicates it was.
-4. After uploading, the app will provide predictions on whether a prospect will buy or not.
-""")
+    st.markdown("""
+    This section allows you to input new data and get predictions using the trained model.
+    """)
 
-    # Load the saved model
-    try:
-        model = joblib.load("best_model.pkl")
-    except FileNotFoundError:
-        st.error("Model file not found. Please train the model first.")
-        st.stop()
+    # Load the trained model and scaler
+    model = joblib.load('best_model.pkl')
+    scaler = joblib.load('scaler.pkl')
 
-    # Load dataset for prediction
-    st.subheader("Load the Dataset for Prediction")
-    data_prediction_path = st.file_uploader("Upload the dataset for prediction", type=["csv"])
-    if data_prediction_path is not None:
-        data_prediction = pd.read_csv(data_prediction_path)
-        st.write("### Dataset Preview")
-        st.dataframe(data_prediction.head())
+    st.write("#### Input New Data for Prediction")
+    REVIEWS = st.selectbox("REVIEWS", [0, 1])
+    BRO_TOGETHER = st.selectbox("BRO_TOGETHER", [0, 1])
+    COMPARE_SIMILAR = st.selectbox("COMPARE_SIMILAR", [0, 1])
+    WARRANTY = st.selectbox("WARRANTY", [0, 1])
+    SPONSORED_LINKS = st.selectbox("SPONSORED_LINKS", [0, 1])
 
-        # Validate columns
-        expected_columns = ['REVIEWS', 'BRO_TOGETHER', 'COMPARE_SIMILAR', 'WARRANTY', 'SPONSORED_LINKS']
-        if set(data_prediction.columns) == set(expected_columns):
-            # Make predictions
-            predictions = model.predict(data_prediction)
-            data_prediction['PREDICTION'] = predictions
-
-            st.write("### Predictions")
-            st.dataframe(data_prediction)
-
-            # Provide download option
-            csv = data_prediction.to_csv(index=False).encode('utf-8')
-            st.download_button(
-                label="Download Predictions",
-                data=csv,
-                file_name='predictions.csv',
-                mime='text/csv',
-            )
-        else:
-            st.error(f"The dataset does not have the required columns. Expected columns: {expected_columns}")
-    else:
-        st.info("Upload a dataset to make predictions.")
+    # Make a prediction
+    if st.button("Predict"):
+        input_data = pd.DataFrame({
+            'REVIEWS': [REVIEWS],
+            'BRO_TOGETHER': [BRO_TOGETHER],
+            'COMPARE_SIMILAR': [COMPARE_SIMILAR],
+            'WARRANTY': [WARRANTY],
+            'SPONSORED_LINKS': [SPONSORED_LINKS]
+        })
+        input_data_scaled = scaler.transform(input_data)
+        prediction = model.predict(input_data_scaled)[0]
+        prediction_proba = model.predict_proba(input_data_scaled)[0][1]
+        
+        st.write("#### Prediction")
+        st.write("Will the customer buy?", "Yes" if prediction == 1 else "No")
+        st.write("Probability of purchase:", prediction_proba)
