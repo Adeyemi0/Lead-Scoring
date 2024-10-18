@@ -15,7 +15,7 @@
 
 ## Background Overview
 
-This project investigates the browsing behavior of users and how various actions they take on a website influence their purchasing decisions. In an increasingly competitive digital marketplace, understanding what drives users to make purchases is critical for businesses to optimize their websites and increase conversion rates. The primary objective of this project is to identify key interactions between different browsing behaviors (such as viewing images, reviews, or product specifications) and their effect on purchase likelihood. The results provide actionable insights to help improve website user experience and drive higher sales.
+This project investigates the browsing behavior of users and how various actions they take on a website influence their purchasing decisions. In an increasingly competitive digital marketplace, understanding what drives users to make purchases is critical for businesses to optimize their websites and increase conversion rates. The primary objective of this project is to identify key interactions between different browsing behaviors (such as viewing images, reviews, product specifications...) and their effect on purchase likelihood. The results provide actionable insights to help improve website user experience and drive higher sales.
 
 ## Data Dictionary
 
@@ -36,7 +36,7 @@ The dataset used in this project contains information about user sessions on a w
 
 ## Executive Summary
 
-This project explores how different user interactions on a product webpage influence the likelihood of a purchase. By analyzing user browsing behavior—specifically, viewing images, reading reviews, and checking product specifications—we can identify which combinations of actions are most likely to lead to a purchase. 
+This project explores how different user interactions on a product webpage influence the likelihood of a purchase. By analyzing user browsing behavior (viewing images, reading reviews, checking product specifications...) I can identify which combinations of actions are most likely to lead to a purchase. 
 
 **Key Findings**:
 - **Reviews drive purchases**: Users who viewed reviews were significantly more likely to make a purchase, even without viewing images.
