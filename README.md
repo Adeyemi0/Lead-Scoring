@@ -211,15 +211,9 @@ weighted avg       0.97      0.97      0.97       111
  ```
 
 
+## Conclusion:
 
-
-
-## Conclusion
-
-- **Random Over-Sampling** and **SMOTE** both performed equally well, achieving the highest precision, recall, F1-scores, and overall accuracy at **0.99**. These methods effectively handled the class imbalance and provided the best overall results.
-- **Random Under-Sampling** and **NearMiss** also performed well with an accuracy of **0.97**, but they showed slightly lower precision and recall for class 1 compared to the over-sampling methods.
-- Based on these results, **Random Over-Sampling** or **SMOTE** is recommended as the preferred sampling technique when handling class imbalances for this dataset.
-
+All models performed well in predicting class 0 and class 1, with Random Over-Sampling and SMOTE having slightly higher precision and recall, leading to an overall accuracy of 0.99. Both Random Over-Sampling and SMOTE outperformed the other methods in terms of precision and recall. NearMiss and Random Under-Sampling achieved 0.97 accuracy but with slightly lower precision for class 1.
 
 
 ## Recommendations
