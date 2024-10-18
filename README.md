@@ -105,23 +105,117 @@ EDA is an essential step in understanding the dataset's structure and relationsh
        - **COMPARE_SIMILAR = 1, SPONSORED_LINKS = 1**: 47.06% did not make a purchase, while 52.94% did. Combining both features significantly increases the likelihood of making a purchase, with more than half of users converting.
 
 
-### **Key Insights from EDA**:
-   - Users who viewed reviews significantly increased their likelihood of making a purchase compared to those who did not.
-   - The analysis of the correlation matrix revealed that features like `REVIEWS` and `IMAGES` had strong positive correlations with `BUY`, highlighting their importance in the purchasing decision process.
+===============================
+   Key Takeaways from Insights
+===============================
+
+1. Reviews Play a Critical Role in Purchasing Decisions:
+   - Viewing reviews significantly boosts purchase likelihood.
+   - Example: Reviews alone = 53.57% purchase rate, even without images.
+   - Combining reviews with images = 58.33% purchase rate (highest).
+
+2. Images Alone Have a Weaker Influence:
+   - Images alone = 22.22% purchase rate, less effective than reviews alone.
+   - Combining images and reviews increases chances of purchase.
+
+3. Specifications Alone Are Less Persuasive Without Reviews:
+   - Specs without reviews = 25% purchase rate (limited impact).
+   - Specs and reviews together = 46.43% purchase rate (much better).
+
+4. FAQ Alone Does Not Significantly Drive Purchases:
+   - FAQ without images = 21.74% purchase rate (low impact).
+   - FAQ with images = 42.86% purchase rate, improving chances of purchase.
+
+5. Warranty Information Enhances Purchase Likelihood:
+   - Warranty alone boosts purchase likelihood compared to having no information.
+   - Warranty + specs = 51.85% purchase rate, showing strong interaction.
+
+6. Comparing Similar Items is More Effective than Sponsored Links:
+   - Comparing similar items = 33.33% purchase rate, better than clicking sponsored links.
+   - Combining both features = 52.94% purchase rate (highest).
+
+===============================
 
 
 ### 3. **Machine Learning Models**:
+# Classification Model Performance Comparison
 
-   #### **Model Performance**:
-   - **Evaluation Metrics**: 
-     - Accuracy
-     - Precision
-     - Recall
-     - F1-Score
-     - ROC-AUC score
+This project evaluates the performance of different sampling techniques used to address class imbalance in the dataset. We applied Random Under-Sampling, Random Over-Sampling, SMOTE, and NearMiss to build classification models and measured their performance using key metrics such as precision, recall, F1-score, and accuracy.
 
-   #### **Results**:
-   - **Best Performing Model**:
+## Modelling Criteria
+
+1. **Random Under-Sampling**: This technique reduces the majority class by randomly selecting a subset, leading to balanced but smaller training data.
+2. **Random Over-Sampling**: This technique increases the minority class by duplicating samples to match the size of the majority class.
+3. **SMOTE (Synthetic Minority Over-sampling Technique)**: It creates synthetic samples for the minority class to balance the dataset.
+4. **NearMiss**: A type of under-sampling technique that selects examples based on the proximity of majority class examples to minority class examples.
+
+## Summary of Key Metrics
+| Metric                | Random Under-Sampling | Random Over-Sampling | SMOTE                | NearMiss             |
+|-----------------------|-----------------------|----------------------|----------------------|----------------------|
+| **Precision (0)**      | 1.00                  | 1.00                 | 1.00                 | 1.00                 |
+| **Precision (1)**      | 0.95                  | 0.98                 | 0.98                 | 0.95                 |
+| **Recall (0)**         | 0.95                  | 0.98                 | 0.98                 | 0.95                 |
+| **Recall (1)**         | 1.00                  | 1.00                 | 1.00                 | 1.00                 |
+| **F1-Score (0)**       | 0.97                  | 0.99                 | 0.99                 | 0.97                 |
+| **F1-Score (1)**       | 0.97                  | 0.99                 | 0.99                 | 0.97                 |
+| **Accuracy**           | 0.97                  | 0.99                 | 0.99                 | 0.97                 |
+
+## Model Performance Breakdown:
+
+### Random Under-Sampling:
+```plaintext
+              precision    recall  f1-score   support
+
+           0       1.00      0.95      0.97        56
+           1       0.95      1.00      0.97        55
+
+    accuracy                           0.97       111
+   macro avg       0.97      0.97      0.97       111
+weighted avg       0.97      0.97      0.97       111
+
+### Random Over-Sampling:
+
+              precision    recall  f1-score   support
+
+           0       1.00      0.98      0.99       100
+           1       0.98      1.00      0.99        89
+
+    accuracy                           0.99       189
+   macro avg       0.99      0.99      0.99       189
+weighted avg       0.99      0.99      0.99       189
+
+### SMOTE:
+
+              precision    recall  f1-score   support
+
+           0       1.00      0.98      0.99       100
+           1       0.98      1.00      0.99        89
+
+    accuracy                           0.99       189
+   macro avg       0.99      0.99      0.99       189
+weighted avg       0.99      0.99      0.99       189
+
+### NearMiss:
+
+              precision    recall  f1-score   support
+
+           0       1.00      0.95      0.97        56
+           1       0.95      1.00      0.97        55
+
+    accuracy                           0.97       111
+   macro avg       0.97      0.97      0.97       111
+weighted avg       0.97      0.97      0.97       111 ```
+
+
+
+
+
+## Conclusion
+
+- **Random Over-Sampling** and **SMOTE** both performed equally well, achieving the highest precision, recall, F1-scores, and overall accuracy at **0.99**. These methods effectively handled the class imbalance and provided the best overall results.
+- **Random Under-Sampling** and **NearMiss** also performed well with an accuracy of **0.97**, but they showed slightly lower precision and recall for class 1 compared to the over-sampling methods.
+- Based on these results, **Random Over-Sampling** or **SMOTE** is recommended as the preferred sampling technique when handling class imbalances for this dataset.
+
 
 
 ## Recommendations
