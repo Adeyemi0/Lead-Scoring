@@ -54,9 +54,36 @@ The analysis followed a structured approach:
    - The dataset was cleaned.
    - Features were standardized and categorical variables were encoded where necessary to prepare the data for machine learning modeling.
 
-### 2. **Exploratory Data Analysis (EDA)**:
-   - Contingency tables and crosstabs were used to explore relationships between features and the target variable (BUY).
-   - Heatmaps were generated to visualize these interactions and uncover patterns.
+### 2. **Exploratory Data Analysis (EDA)**
+
+EDA is a crucial step in understanding the structure and relationships within the dataset before applying any machine learning models. In this project, the EDA process helped to uncover key patterns and correlations between user actions and purchase decisions. The following techniques and visualizations were applied during the EDA phase:
+
+#### **2.1. Descriptive Statistics**:
+   - **Summary statistics** were generated for the dataset to understand the central tendency, dispersion, and distribution of variables. This included calculating the mean, median, mode, variance, and standard deviation for numerical variables like `IMAGES`, `REVIEWS`, and `BUY`.
+   - **Class distribution**: The target variable `BUY` was analyzed to determine how instances were distributed between purchases and non-purchases. This analysis highlighted potential class imbalance issues, which could impact model performance.
+
+#### **2.2. Visualization of Relationships**:
+   - **Bar Charts**: Bar charts were used to visualize the proportions of users who made purchases (`BUY = 1`) versus those who did not (`BUY = 0`) based on each browsing behavior (e.g., `IMAGES`, `REVIEWS`, `FAQ`, etc.). This helped in understanding the impact of each feature on purchase likelihood.
+   - **Count Plots**: Seaborn count plots provided a visual representation of the count of purchases across different user actions, allowing for a quick comparison of how often users engage with each feature.
+
+#### **2.3. Contingency Tables**:
+   - **Crosstab Analysis**: Contingency tables were created to analyze the relationship between two categorical variables, such as `REVIEWS` and `BUY`. This enabled the examination of how many users who viewed reviews went on to make a purchase compared to those who did not. The crosstab results provided insights into how certain actions correlated with purchasing decisions.
+
+#### **2.4. Heatmaps**:
+   - **Correlation Matrix**: A heatmap was generated to visualize the correlation matrix of the features in the dataset. This matrix indicated which variables had strong positive or negative correlations with the target variable `BUY` and among themselves. For instance, a strong correlation between `REVIEWS` and `BUY` would suggest that users who read reviews are more likely to make a purchase.
+   - **Interaction Heatmaps**: Heatmaps were also created to visualize interactions between features, such as `IMAGES` vs. `REVIEWS` and their combined effect on `BUY`. These visualizations helped to identify potential synergies between user actions.
+
+#### **2.5. Feature Distribution**:
+   - **Distribution Plots**: Distribution plots for key features were examined to assess their skewness and kurtosis. This helped identify whether transformations might be needed to normalize the data for modeling.
+   - **Box Plots**: Box plots were created to identify outliers in features that might influence purchasing decisions, such as shipping information or warranty checks.
+
+#### **2.6. Insights and Observations**:
+   - **Key Insights**: The EDA revealed several critical insights:
+     - Users who viewed product images and reviews together had the highest likelihood of purchasing, indicating a synergistic effect.
+     - Viewing reviews alone significantly increased the probability of purchase compared to not viewing any reviews at all.
+     - Interaction features, like `IMAGES_AND_REVIEWS`, were found to be highly predictive of user purchases, suggesting that these combinations should be prioritized in user experience design.
+   - **Behavioral Patterns**: The analysis highlighted distinct user behaviors, such as the tendency to browse similar items after viewing product specifications. Understanding these patterns provided actionable insights for enhancing website navigation and content layout.
+
 
 ### 3. **Feature Engineering**:
    - New interaction features (e.g., `IMAGES_AND_REVIEWS`, `SPECS_AND_REVIEWS`) were created to capture the combined effects of multiple user actions.
