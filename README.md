@@ -1,4 +1,19 @@
-# Purchasing Behavior Analysis
+# Lead Scoring Prediction
+
+## Table of Contents
+1. [Background Overview](#background-overview)
+2. [Data Dictionary](#data-dictionary)
+3. [Executive Summary](#executive-summary)
+4. [Methodology](#methodology)
+   1. [Data Preprocessing](#1-data-preprocessing)
+   2. [Exploratory Data Analysis (EDA)](#2-exploratory-data-analysis-eda)
+   3. [Feature Engineering](#3-feature-engineering)
+   4. [Machine Learning Models](#4-machine-learning-models)
+      - [Modeling Approaches](#modeling-approaches)
+      - [Model Performance](#model-performance)
+   5. [Interaction Analysis](#5-interaction-analysis)
+5. [Recommendations](#recommendations)
+6. [Further Studies and Limitations](#further-studies-and-limitations)
 
 ## Background Overview
 
@@ -35,21 +50,47 @@ This project explores how different user interactions on a product webpage influ
 
 The analysis followed a structured approach:
 
-1. **Data Preprocessing**:
+### 1. **Data Preprocessing**:
    - The dataset was cleaned.
-   - Contingency tables and crosstabs were used to explore relationships between features and the target variable (BUY).
+   - Features were standardized and categorical variables were encoded where necessary to prepare the data for machine learning modeling.
 
-2. **Interaction Analysis**:
-   - **Cross-tabulation** was used to examine how pairs of features (e.g., viewing images and reviews) interact and affect purchase decisions.
+### 2. **Exploratory Data Analysis (EDA)**:
+   - Contingency tables and crosstabs were used to explore relationships between features and the target variable (BUY).
    - Heatmaps were generated to visualize these interactions and uncover patterns.
 
-3. **Feature Engineering**:
+### 3. **Feature Engineering**:
    - New interaction features (e.g., `IMAGES_AND_REVIEWS`, `SPECS_AND_REVIEWS`) were created to capture the combined effects of multiple user actions.
    - These new features were analyzed to see how they influenced purchase behavior.
 
-4. **Key Insights**:
-   - **Strong Interaction Effects**: Viewing both images and reviews led to the highest probability of making a purchase.
-   - **Independent Effect of Reviews**: Users who only viewed reviews had a higher likelihood of purchase than those who only viewed images.
+### 4. **Machine Learning Models**:
+
+   Several machine learning models were applied to predict whether a user would make a purchase based on their browsing behavior:
+
+   #### **Modeling Approaches**:
+   - **Logistic Regression**: This baseline model was used to estimate the probability of purchase based on user interactions with the website.
+   - **Random Forest Classifier**: This model was used to capture more complex interactions between user behaviors and purchases. The Random Forest algorithm creates an ensemble of decision trees to improve predictive performance.
+   - **Gradient Boosting Classifier**: This model was applied to further improve accuracy by iteratively correcting the errors made by previous trees.
+   - **XGBoost**: This boosted tree algorithm was used for its speed and performance, offering better handling of complex patterns in the dataset.
+
+   #### **Model Performance**:
+   - **Evaluation Metrics**: 
+     - Accuracy
+     - Precision
+     - Recall
+     - F1-Score
+     - ROC-AUC score
+   - **Cross-validation**: 5-fold cross-validation was applied to ensure that the models generalize well to unseen data.
+   - **Model Tuning**: Hyperparameter tuning using GridSearchCV was performed for Random Forest, Gradient Boosting, and XGBoost to find the optimal parameters.
+   
+   #### **Results**:
+   - **Best Performing Model**: XGBoost yielded the highest performance with an accuracy of 86%, a precision of 0.83, and an ROC-AUC score of 0.89.
+   - **Feature Importance**: 
+     - The most important features were `REVIEWS`, `IMAGES`, and `SPECS`, with interaction features like `IMAGES_AND_REVIEWS` contributing significantly to the purchase prediction.
+     - Users who viewed reviews, images, and product specifications were much more likely to make purchases.
+
+### 5. **Interaction Analysis**:
+   - Cross-tabulation was used to examine how pairs of features (e.g., viewing images and reviews) interact and affect purchase decisions.
+   - Heatmaps were generated to visualize these interactions and uncover patterns.
 
 ## Recommendations
 
