@@ -104,10 +104,7 @@ EDA is an essential step in understanding the dataset's structure and relationsh
        - **COMPARE_SIMILAR = 1, SPONSORED_LINKS = 0**: 66.67% did not make a purchase, while 33.33% did. Comparing similar items positively impacts purchase likelihood compared to not engaging with both features.
        - **COMPARE_SIMILAR = 1, SPONSORED_LINKS = 1**: 47.06% did not make a purchase, while 52.94% did. Combining both features significantly increases the likelihood of making a purchase, with more than half of users converting.
 
-
-===============================
-   Key Takeaways from Insights
-===============================
+### Key Takeaways from Insights
 
 1. Reviews Play a Critical Role in Purchasing Decisions:
    - Viewing reviews significantly boosts purchase likelihood.
@@ -204,7 +201,9 @@ weighted avg       0.99      0.99      0.99       189
 
     accuracy                           0.97       111
    macro avg       0.97      0.97      0.97       111
-weighted avg       0.97      0.97      0.97       111 ```
+weighted avg       0.97      0.97      0.97       111
+
+ ```
 
 
 
