@@ -175,7 +175,10 @@ This project evaluates the performance of different sampling techniques used to 
    macro avg       0.97      0.97      0.97       111
 weighted avg       0.97      0.97      0.97       111
 
+ ```
+
 ### Random Over-Sampling:
+```plaintext
 
               precision    recall  f1-score   support
 
@@ -185,9 +188,13 @@ weighted avg       0.97      0.97      0.97       111
     accuracy                           0.99       189
    macro avg       0.99      0.99      0.99       189
 weighted avg       0.99      0.99      0.99       189
+
+ ```
 
 ### SMOTE:
 
+```plaintext
+
               precision    recall  f1-score   support
 
            0       1.00      0.98      0.99       100
@@ -197,7 +204,10 @@ weighted avg       0.99      0.99      0.99       189
    macro avg       0.99      0.99      0.99       189
 weighted avg       0.99      0.99      0.99       189
 
+ ```
+
 ### NearMiss:
+```plaintext
 
               precision    recall  f1-score   support
 
