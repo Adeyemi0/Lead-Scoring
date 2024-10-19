@@ -49,8 +49,8 @@ This project explores how different user interactions on a product webpage influ
 The analysis followed a structured approach:
 
 ### 1. **Data Preprocessing**:
-   - The dataset was cleaned.
-   - Features were standardized and categorical variables were encoded where necessary to prepare the data for machine learning modeling.
+   - The dataset was cleaned and checked for any missing values. 
+  
 
 ### 2. **Exploratory Data Analysis (EDA)**
 
